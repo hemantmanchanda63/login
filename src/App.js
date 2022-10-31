@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import Login from './Login';
+import Register from './Register';
+import Navbar from './Navbar';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import Info from './Info';
+import React,{useState} from 'react';
+import Error from './Error';
 
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("usertoken") ?? null);
+  console.log(token);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+      <Navbar />
+        <Routes>
+          <Route path='/' element={token?<Info />: <Login token={token} setToken={setToken} /> } />
+          <Route path='/register' element={<Register />} />
+          <Route path='/info' element={<Info />} />
+          <Route path='*' element={<Error />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
