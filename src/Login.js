@@ -7,7 +7,7 @@ const Login = (props) => {
     const {token,setToken}= props;
     const [user, setUser] = useState("");
     const [pass, setPass] = useState("");
-    console.log(user);
+    // console.log(user);
   
   const loginhandle=()=>{
     axios({
@@ -18,7 +18,7 @@ const Login = (props) => {
             password: pass
         }
     }).then(res=>{
-        console.log(res.data.token)
+        console.log(res.data.token,"this is hello")
         localStorage.setItem("usertoken", res.data.token)
         setToken(res.data.token)
     }).catch(err=>{
@@ -58,7 +58,9 @@ const Login = (props) => {
             />
             <label className="form-label">Password</label>
           </div>
+          <div className="text-danger mb-4">
         {error?"Username and Password is incorrect": null}
+        </div>
           {/* <!-- 2 column grid layout for inline styling --> */}
           <div className="row mb-4">
             <div className="col d-flex justify-content-center">
